@@ -1,10 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class GameManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public static GameManager instance = null;
+    public BoardManager boardScript;
+
+    public int level = 3;
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+        boardScript = GetComponent<BoardManager>();
+        InitGame();
+    }
+
+    void InitGame()
+    {
+        boardScript.SetupScene(level);
+    }
+
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
